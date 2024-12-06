@@ -16,7 +16,7 @@ const productos = JSON.parse(productosData);
 productRouter.get('/', (req,res) => {
     const {limit} = req.query
     const productos = productos.slice(0, limit) 
-    res.status(200).send(productos)
+    res.status(200).render('templates/porductos', {productos: productos, js: 'productos.js', css: 'productos.css'})
 })
 
 //Retorna un producto dado su ID
@@ -24,7 +24,7 @@ productRouter.get('/:pid', (req,res) => {
     //const idProducto = req.params.pid
     const producto = productos.find(prod => prod.id == req.params.pid)
     if(producto) {
-        res.status(200).send(producto)
+        res.status(200).render('templates/porductos', {productos: producto, js: 'productos.js', css: 'productos.css'})
     } 
     else {
         res.status(404).send({mensaje: "El producto no existe"})
